@@ -99,8 +99,15 @@
     ];
   };
 
+  ############
+  # Programs #
+  ############
+
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Install niri
+  programs.niri.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -125,7 +132,6 @@
     wget
     kitty
     noctalia
-    niri
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
