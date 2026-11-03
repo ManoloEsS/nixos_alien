@@ -12,7 +12,10 @@
 
   outputs = { nixpkgs, ... }: {
     nixosConfigurations.alien = nixpkgs.lib.nixosSystem {
-      modules = [ ./configuration.nix ];
+      modules = [ 
+        ./configuration.nix 
+	home-manager.nixosModules.home-manager
+      ];
     };
   };
 }
