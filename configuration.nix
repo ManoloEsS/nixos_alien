@@ -12,6 +12,12 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages= true;
+    users.manoloess = import ./home.nix;
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
