@@ -1,7 +1,14 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   home.stateVersion = "26.05";
+
+    home.pointerCursor = {
+    enable = true;
+    package = pkgs.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
+  };
 
   programs.noctalia = {
     enable = true;
