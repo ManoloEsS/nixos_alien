@@ -26,7 +26,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   boot.initrd.luks.devices."luks-f83c8f88-7234-4a0f-8275-51f40a89a374".device = "/dev/disk/by-uuid/f83c8f88-7234-4a0f-8275-51f40a89a374";
   networking.hostName = "alien"; # Define your hostname.
