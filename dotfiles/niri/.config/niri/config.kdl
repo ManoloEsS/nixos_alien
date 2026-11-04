@@ -47,7 +47,7 @@ input {
 }
 
 // Touchpad state fragment (see top comment): positioned after input so it wins.
-// include "~/.config/niri/touchpad.kdl"
+include "~/.config/niri/touchpad.kdl"
 
 layout {
     gaps 3
