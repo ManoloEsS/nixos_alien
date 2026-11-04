@@ -131,6 +131,7 @@ window-rule {
 }
 
 cursor {
+    xcursor-size 24
     hide-when-typing
     hide-after-inactive-ms 1000 // Hides the cursor after 1 second of inactivity
 }
