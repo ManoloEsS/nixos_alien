@@ -64,6 +64,7 @@
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.gnome.core-apps.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -131,6 +132,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     kitty
+    nautilus
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
