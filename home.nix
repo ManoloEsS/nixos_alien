@@ -3,12 +3,20 @@
 {
   home.stateVersion = "26.05";
 
-    home.pointerCursor = {
+  home.pointerCursor = {
     enable = true;
     package = pkgs.adwaita-icon-theme;
     name = "Adwaita";
     size = 24;
   };
+
+  home.packages = [
+    pkgs.wtype
+  ];
+
+  # Utilities script sourcing
+  home.file.".local/bin/universal-clipboard".source = ./dotfiles/utilities/universal-clipboard;
+  home.file.".local/bin/toggle-touchpad".source = ./dotfiles/utilities/toggle-touchpad;
 
   programs.noctalia = {
     enable = true;

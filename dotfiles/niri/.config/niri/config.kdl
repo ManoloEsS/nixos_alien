@@ -81,7 +81,6 @@ layout {
 // Keep Noctalia as the only shell owner for the bar, launcher, notifications,
 // lock screen, idle behavior, wallpaper, and control center.
 spawn-at-startup "noctalia"
-// spawn-at-startup "~/.config/niri/auto-column-width.py"
 
 hotkey-overlay {
     skip-at-startup
@@ -306,7 +305,6 @@ binds {
     Super+Alt+M hotkey-overlay-title="Open media controls" { spawn-sh "noctalia msg panel-toggle control-center media"; }
     Super+Alt+P hotkey-overlay-title="Open power controls" { spawn-sh "noctalia msg panel-toggle control-center power"; }
     Super+Alt+T hotkey-overlay-title="Open system controls" { spawn-sh "noctalia msg panel-toggle control-center system"; }
-    Super+Alt+U hotkey-overlay-title="Apply system updates" { spawn "ghostty" "-e" "fedora-update"; }
     Super+Alt+V hotkey-overlay-title="Open clipboard history" { spawn-sh "noctalia msg panel-toggle clipboard"; }
     Super+Alt+W hotkey-overlay-title="Open network controls" { spawn-sh "noctalia msg panel-toggle control-center network"; }
     Super+Alt+Shift+S hotkey-overlay-title="Capture screen region" { spawn-sh "noctalia msg screenshot-region"; }
