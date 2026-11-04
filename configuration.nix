@@ -104,9 +104,6 @@
   # Programs #
   ############
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Install niri
   programs.niri.enable = true;
 
