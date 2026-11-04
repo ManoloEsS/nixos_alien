@@ -12,11 +12,17 @@
     noctalia.url = "github:noctalia-dev/noctalia";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
+  outputs = { nixpkgs, home-manager, noctalia, ... }: {
     nixosConfigurations.alien = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./configuration.nix 
-	home-manager.nixosModules.home-manager
+        home-manager.nixosModules.home-manager
+
+        {
+          home-manager.users.manoloess.imports = [
+            noctalia.homeModules.default
+          ];
+        }
       ];
     };
   };
