@@ -1,6 +1,6 @@
 // Niri configuration for the Fedora laptop session.
 // Machine-specific outputs live in ~/.config/niri/local.kdl (see profiles/laptop/).
-include "~/.config/niri/local.kdl"
+// include "~/.config/niri/local.kdl"
 // Touchpad on/off state lives in ~/.config/niri/touchpad.kdl (toggle-touchpad).
 // It MUST be included after the main input block below: pointing-device
 // sections are not merged, so the later definition wins wholesale.
@@ -47,7 +47,7 @@ input {
 }
 
 // Touchpad state fragment (see top comment): positioned after input so it wins.
-include "~/.config/niri/touchpad.kdl"
+// include "~/.config/niri/touchpad.kdl"
 
 layout {
     gaps 3
