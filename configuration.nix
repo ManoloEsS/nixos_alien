@@ -16,6 +16,9 @@
     useGlobalPkgs = true;
     useUserPackages= true;
     users.manoloess = import ./home.nix;
+
+    # Rename conflicting existing files instead of overwrite
+    backupFileExtension = "hm-backup";
   };
 
   # Use the systemd-boot EFI boot loader.
