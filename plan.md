@@ -12,11 +12,15 @@ Adapt the functionality of `atomic_laptop` for NixOS, keeping the setup minimal,
 - [x] Install Brave and Nautilus; manage Brave's default browser associations.
 - [x] Configure networking, Bluetooth, power profiles, UPower, PipeWire, and OpenSSH.
 - [x] Install Git, GitHub CLI, and Neovim.
+- [x] Restore universal clipboard shortcuts with `wtype` and a Home Manager-managed helper.
+- [x] Restore the touchpad toggle using a writable, optional Niri state file.
+- [x] Select the default Nixpkgs kernel instead of the latest kernel.
+- [x] Investigate silent audio; sound is working again, but the underlying cause remains unknown.
 
 ## Desktop and usability
 
-- [ ] Restore or replace the universal clipboard shortcuts and their dependencies.
-- [ ] Adapt the touchpad toggle and its mutable state to work with the managed Niri configuration.
+- [ ] Make `notify-send` available system-wide and verify touchpad-toggle notifications.
+- [ ] Verify audio still works after a direct NixOS reboot; investigate further if it fails again.
 - [ ] Replace or remove the Fedora-specific update shortcut; review other copied shortcuts and scripts.
 - [ ] Verify the Brave picture-in-picture rule and other desired Niri/Noctalia functionality.
 - [ ] Decide whether to keep the GNOME fallback after Niri is established.

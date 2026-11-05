@@ -46,6 +46,12 @@
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
 
+  # Enable Tailscale
+  services.tailscale = {
+  enable = true;
+  extraSetFlags = [ "--ssh" ];
+  };
+
   # Set your time zone.
   time.timeZone = "America/Denver";
 
@@ -139,6 +145,7 @@
     nautilus
     brave
     ghostty
+    libnotify
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
