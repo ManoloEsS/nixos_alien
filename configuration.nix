@@ -142,7 +142,6 @@
     git
     gh
     wget
-    kitty
     nautilus
     brave
     ghostty
@@ -159,6 +158,10 @@
     python3
     go
     gotools
+    fzf
+    bat
+    fastfetch
+    btop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
