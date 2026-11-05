@@ -40,4 +40,6 @@
   xdg.configFile."ghostty/config".source = ./dotfiles/ghostty/.config/ghostty/config;
 
   xdg.configFile."tmux/tmux.conf".source = ./dotfiles/tmux/.config/tmux/tmux.conf;
+
+  xdg.configFile."yazi/yazi.toml".source = ./dotfiles/yazi/.config/yazi/yazi.toml;
 }
