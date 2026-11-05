@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/hosts/alien/keyd.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
