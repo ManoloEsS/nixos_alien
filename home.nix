@@ -19,6 +19,7 @@
   home.file.".local/bin/toggle-touchpad".source = ./dotfiles/utilities/toggle-touchpad;
 
   # Bash configuration
+  programs.bash.enable = true;
   home.file.".bash_aliases".source = ./dotfiles/bash/.bash_aliases;
   home.file.".bash_functions".source = ./dotfiles/bash/.bash_functions;
   home.file.".inputrc".source = ./dotfiles/bash/.inputrc;
@@ -27,6 +28,11 @@
     source "$HOME/.bash_aliases"
     source "$HOME/.bash_functions"
   '';
+
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+  };
   
 
   # Noctalia config
@@ -47,7 +53,6 @@
     };
   };
 
-  programs.bash.enable = true;
 
   xdg.configFile."niri/config.kdl".source = ./dotfiles/niri/.config/niri/config.kdl;
 

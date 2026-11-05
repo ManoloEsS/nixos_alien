@@ -158,7 +158,6 @@
     python3
     go
     gotools
-    fzf
     bat
     fastfetch
     btop
