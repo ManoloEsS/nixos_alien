@@ -10,6 +10,11 @@
     };
 
     noctalia.url = "github:noctalia-dev/noctalia";
+
+    yazi-tokyo-night = {
+      url = "github:BennyOe/tokyo-night.yazi/8e6296f14daff24151c736ebd0b9b6cd89b02b03";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, noctalia, ... }: {
