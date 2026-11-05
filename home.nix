@@ -38,4 +38,6 @@
   xdg.configFile."niri/config.kdl".source = ./dotfiles/niri/.config/niri/config.kdl;
 
   xdg.configFile."ghostty/config".source = ./dotfiles/ghostty/.config/ghostty/config;
+
+  xdg.configFile."tmux/tmux.conf".source = ./dotfiles/tmux/.config/tmux/tmux.conf;
 }
