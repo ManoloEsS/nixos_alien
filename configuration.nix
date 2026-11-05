@@ -149,6 +149,13 @@
     libnotify
     yazi
     tmux
+    gnumake
+    unzip
+    gcc
+    ripgrep
+    fd
+    tree-sitter
+    nodejs
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
