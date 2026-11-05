@@ -1,5 +1,3 @@
-# Portable Bash setup for the Fedora workstation.
-
 export EDITOR="${HOME}/.local/share/mise/shims/nvim"
 export VISUAL="${EDITOR}"
 export GIT_EDITOR="${EDITOR}"
@@ -15,12 +13,6 @@ case ":${PATH}:" in
   *":${HOME}/.local/bin:"*) ;;
   *) PATH="${HOME}/.local/bin${PATH:+:${PATH}}" ;;
 esac
-
-case ":${PATH}:" in
-  *":${HOME}/.local/share/mise/shims:"*) ;;
-  *) PATH="${HOME}/.local/share/mise/shims${PATH:+:${PATH}}" ;;
-esac
-export PATH
 
 # Tailscale SSH sessions skip pam_systemd, so XDG_RUNTIME_DIR is unset and
 # rootless Podman/Toolbox fails with "failed to initialize container".

@@ -7,7 +7,7 @@ eff() {
   local file
   file="$(ff "$@")" || return
   [[ -n "${file}" ]] || return
-  "${EDITOR}" "${file}"
+  "${EDITOR:-nvim}" "${file}"
 }
 
 open() (

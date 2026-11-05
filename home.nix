@@ -18,6 +18,18 @@
   home.file.".local/bin/universal-clipboard".source = ./dotfiles/utilities/universal-clipboard;
   home.file.".local/bin/toggle-touchpad".source = ./dotfiles/utilities/toggle-touchpad;
 
+  # Bash configuration
+  home.file.".bash_aliases".source = ./dotfiles/bash/.bash_aliases;
+  home.file.".bash_functions".source = ./dotfiles/bash/.bash_functions;
+  home.file.".inputrc".source = ./dotfiles/bash/.inputrc;
+
+  programs.bash.initExtra = ''
+    source "$HOME/.bash_aliases"
+    source "$HOME/.bash_functions"
+  '';
+  
+
+  # Noctalia config
   programs.noctalia = {
     enable = true;
     settings = ./dotfiles/noctalia/.config/noctalia/config.toml;

@@ -1,6 +1,5 @@
 # Explicit convenience aliases. Core commands remain unmodified.
 alias ls='command ls --color=auto'
-alias vim='nvim'
 alias ..='cd ..'
 alias ...='cd ../..'
 
