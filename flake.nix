@@ -17,7 +17,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, noctalia, ... }: {
+  outputs = { nixpkgs, home-manager, noctalia, yazi-tokyo-night, ... }: {
     nixosConfigurations.alien = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./configuration.nix 
@@ -27,6 +27,7 @@
           home-manager.users.manoloess.imports = [
             noctalia.homeModules.default
           ];
+	  home-manager.users.manoloess.xdg.configFile."yazi/flavors/tokyo-night.yazi".source = yazi-tokyo-night.outPath;
         }
       ];
     };

@@ -42,4 +42,6 @@
   xdg.configFile."tmux/tmux.conf".source = ./dotfiles/tmux/.config/tmux/tmux.conf;
 
   xdg.configFile."yazi/yazi.toml".source = ./dotfiles/yazi/.config/yazi/yazi.toml;
+
+  xdg.configFile."yazi/theme.toml".source = ./dotfiles/yazi/.config/yazi/theme.toml;
 }
