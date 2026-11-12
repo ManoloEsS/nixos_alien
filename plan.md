@@ -10,8 +10,9 @@ the configuration declares.
 - [x] Boot the fresh NixOS installation with encrypted root and systemd-boot.
 - [x] Apply the locked NixOS and Home Manager configuration; retain GNOME as a
   fallback alongside GDM, Niri, and Noctalia.
-- [x] Configure Brave as the default browser and use Alacritty for the Niri
-  terminal shortcut. Keep Ghostty installed with its own configuration.
+- [ ] Activate and test Brave Origin as the default browser; retain standard
+  Brave and its profile during the transition. Alien uses Alacritty for the
+  Niri terminal shortcut and keeps Ghostty installed with its own configuration.
 - [x] Install JetBrains Mono Nerd Font, keyd for the internal keyboard, audio,
   Bluetooth, power services, and the Niri desktop helpers. The user confirmed
   the touchpad toggle and universal clipboard shortcuts work.

@@ -71,6 +71,7 @@
     wget
     nautilus
     brave
+    brave-origin
     ghostty
     libnotify
     yazi
