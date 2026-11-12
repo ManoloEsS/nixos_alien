@@ -1,16 +1,18 @@
 # E14 preferences observed on its Fedora installation. This module is not a
 # complete NixOS host: installation-specific hardware and storage are needed.
-{ ... }:
+{ lib, pkgs, ... }:
 
 {
+  imports = [ ./battery.nix ];
+
   # Avoid the interactive latency spikes observed with Wi-Fi power saving.
   networking.networkmanager.wifi.powersave = false;
 
-  # Match the current E14 behavior: apply the remapping to every keyboard.
+  # Target the internal keyboard; external keyboards keep their own mappings.
   services.keyd = {
     enable = true;
-    keyboards.all = {
-      ids = [ "*" ];
+    keyboards.internal = {
+      ids = [ "0001:0001:09b4e68d" ];
       extraConfig = ''
         [shiftmeta:S-M]
 
@@ -23,4 +25,12 @@
       '';
     };
   };
+
+  # Keep shared Niri bindings, but launch Ghostty on this host.
+  home-manager.users.manoloess.xdg.configFile."niri/config.kdl".source = lib.mkForce (
+    pkgs.writeText "niri-thinkpad-e14.kdl" (builtins.replaceStrings
+      [ ''spawn "alacritty"'' ]
+      [ ''spawn "ghostty"'' ]
+      (builtins.readFile ../../../dotfiles/niri/.config/niri/config.kdl))
+  );
 }

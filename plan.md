@@ -50,7 +50,7 @@ the configuration declares.
   relevant controls. Automatic login remains a per-machine decision.
 - [ ] Finish the E14 host profile. Its composition is preliminary and needs
   installation-specific hardware and storage, boot choices, state versions,
-  and a separate battery-limit design.
+  and runtime testing of its preliminary battery-limit and travel-mode feature.
 - [ ] Review backups of data outside the flake: secrets, browser profiles,
   NetworkManager profiles, Neovim plugins, and mutable application state.
 

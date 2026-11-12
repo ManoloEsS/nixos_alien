@@ -31,12 +31,14 @@ configuration but has not yet been synchronized or activated on the laptop.
 
 The preliminary E14 composition in `modules/dendritic/thinkpad-e14.nix` selects
 the shared workstation and `modules/hosts/thinkpad-e14`, which records the E14's
-Wi-Fi and keyboard preferences. It is not yet a complete or installable NixOS
+Wi-Fi and internal-keyboard preferences and changes its Niri terminal shortcut
+to Ghostty. Alien retains Alacritty. It is not yet a complete or installable NixOS
 configuration and is not exposed as a host output. It needs its own
 generated hardware and storage settings, hostname, and installation state
-versions before a flake output can be used. Its optional battery charge-limit
-behavior also needs a separate design and test; Fedora's existing setup remains
-untouched.
+versions before a flake output can be used. Its preliminary battery feature
+declares 75/80 limits and restores them at boot only when UPower's saved state
+is enabled; on a fresh install the limit must be enabled explicitly. This
+behavior has not been tested on NixOS, and Fedora's setup remains untouched.
 
 ## Fresh installation and encryption
 
