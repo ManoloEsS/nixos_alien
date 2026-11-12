@@ -5,63 +5,13 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./modules/hosts/alien/keyd.nix
-    ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages= true;
-    users.manoloess = import ./home.nix;
-
-    # Rename conflicting existing files instead of overwrite
-    backupFileExtension = "hm-backup";
-  };
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages;
-
-  networking.hostName = "alien"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Unassigned connections are restrictive; the home Wi-Fi profile is
-  # assigned to nixos-fw-default separately through NetworkManager.
-  networking.nftables.enable = true;
-  services.firewalld = {
-    enable = true;
-    settings.DefaultZone = "drop";
-  };
-
-  # Enable bluetooth
-  hardware.bluetooth.enable = true;
-
-  # Enable power settings
-  services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;
-
-  # Compressed RAM-backed swap for memory pressure, not hibernation.
-  zramSwap.enable = true;
-
-  # Enable Tailscale
-  services.tailscale = {
-  enable = true;
-  extraSetFlags = [ "--ssh" ];
-  };
 
   # Set your time zone.
   time.timeZone = "America/Denver";
@@ -95,30 +45,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    # jack.enable = true;
-  };
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."manoloess" = {
-    isNormalUser = true;
-    description = "ManoloEsS";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -129,19 +57,8 @@
   # Programs #
   ############
 
-  # Install niri
-  programs.niri.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # Install Neovim
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-    viAlias = true;
-  };
 
   # Install nix-ld for mason compatibility
   programs.nix-ld.enable = true;
@@ -171,18 +88,6 @@
     bat
     fastfetch
     btop
-    # Neovim language servers and formatters; project shells can add toolchains.
-    clang-tools
-    gopls
-    ruff
-    basedpyright
-    rust-analyzer
-    rustfmt
-    lua-language-server
-    stylua
-    prettier
-    prettierd
-    markdownlint-cli2
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -195,9 +100,6 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -208,24 +110,5 @@
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "26.05"; # Did you read the comment?
 
 }

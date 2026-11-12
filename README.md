@@ -11,6 +11,31 @@ laptop is `/home/manoloess/nixos_alien`; synchronize changes deliberately and
 inspect both copies before overwriting either. The current target directory was
 copied from the workspace and is not necessarily a Git checkout.
 
+## Host profiles
+
+The flake uses flake-parts and import-tree to discover top-level modules in
+`modules/dendritic`. The shared `workstation.nix` composition selects features
+such as desktop, networking, laptop power, Neovim, shell, and audio. It also
+imports the remaining shared settings in `configuration.nix`; `home.nix` holds
+additional shared Home Manager settings. Discovery defines features but does
+not enable every feature on every host.
+
+The `alien` output selects the workstation composition and
+`modules/hosts/alien`, which contains its hostname, boot choices, keyboard
+configuration, and system and Home Manager state versions. That host profile
+imports the existing generated `hardware-configuration.nix`. Generated hardware
+files and other ordinary NixOS modules are outside the auto-discovered tree.
+
+The dendritic refactor has been built and compared with the previous Alien
+configuration but has not yet been synchronized or activated on the laptop.
+
+`modules/hosts/thinkpad-e14` records the E14's Wi-Fi and keyboard preferences,
+but is not yet a complete or installable NixOS configuration. It needs its own
+generated hardware and storage settings, hostname, and installation state
+versions before a flake output can be used. Its optional battery charge-limit
+behavior also needs a separate design and test; Fedora's existing setup remains
+untouched.
+
 ## Fresh installation and encryption
 
 Install and boot a basic NixOS system before applying this host configuration.

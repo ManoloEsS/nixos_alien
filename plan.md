@@ -42,8 +42,10 @@ the configuration declares.
 - [ ] Review Wi-Fi powersave only if needed. Do not copy ThinkPad battery
   thresholds to alien; its previously inspected battery did not expose the
   relevant controls. Automatic login remains a per-machine decision.
-- [ ] Separate reusable workstation settings from host-specific storage,
-  keyboard, GPU, and boot configuration when another host is added.
+- [ ] Finish the dendritic shared workstation and host profiles. The workspace
+  refactor builds for Alien but has not been synchronized or activated there.
+  The E14 module is preliminary and needs installation-specific hardware and
+  storage, boot choices, state versions, and a separate battery-limit design.
 - [ ] Review backups of data outside the flake: secrets, browser profiles,
   NetworkManager profiles, Neovim plugins, and mutable application state.
 

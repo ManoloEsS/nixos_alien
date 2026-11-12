@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    import-tree.url = "github:denful/import-tree";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,24 +27,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, noctalia, herdr, nvim-config, yazi-tokyo-night, ... }: {
-    nixosConfigurations.alien = nixpkgs.lib.nixosSystem {
-      modules = [ 
-        ./configuration.nix 
-        home-manager.nixosModules.home-manager
-
-        {
-          home-manager.users.manoloess.imports = [
-            noctalia.homeModules.default
-          ];
-          home-manager.users.manoloess.xdg.configFile."yazi/flavors/tokyo-night.yazi".source = yazi-tokyo-night.outPath;
-          home-manager.users.manoloess.xdg.configFile."nvim/init.lua".source = "${nvim-config}/init.lua";
-          home-manager.users.manoloess.xdg.configFile."nvim/lua".source = "${nvim-config}/lua";
-          home-manager.users.manoloess.xdg.configFile."nvim/.stylua.toml".source = "${nvim-config}/.stylua.toml";
-          home-manager.users.manoloess.home.packages = [ herdr.packages.x86_64-linux.default ];
-        }
-      ];
-    };
-
-  };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; }
+      (inputs.import-tree ./modules/dendritic);
 }

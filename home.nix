@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.stateVersion = "26.05";
-
   home.pointerCursor = {
     enable = true;
     package = pkgs.adwaita-icon-theme;
@@ -35,46 +33,6 @@
   home.file.".local/bin/universal-clipboard".source = ./dotfiles/utilities/universal-clipboard;
   home.file.".local/bin/toggle-touchpad".source = ./dotfiles/utilities/toggle-touchpad;
 
-  # Bash configuration
-  programs.bash.enable = true;
-  home.file.".bash_aliases".source = ./dotfiles/bash/.bash_aliases;
-  home.file.".bash_functions".source = ./dotfiles/bash/.bash_functions;
-  home.file.".inputrc".source = ./dotfiles/bash/.inputrc;
-
-  programs.bash.initExtra = ''
-    source "$HOME/.bash_aliases"
-    source "$HOME/.bash_functions"
-  '';
-
-  programs.fzf = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  programs.starship = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-  xdg.configFile."starship.toml".source = ./dotfiles/starship/.config/starship.toml;
-
-  programs.zoxide = {
-    enable = true;
-    enableBashIntegration = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    nix-direnv.enable = true;
-  };
-  
-
-  # Noctalia config
-  programs.noctalia = {
-    enable = true;
-    settings = ./dotfiles/noctalia/.config/noctalia/config.toml;
-  };
-
   xdg.mimeApps = {
     enable = true;
 
@@ -87,8 +45,6 @@
     };
   };
 
-
-  xdg.configFile."niri/config.kdl".source = ./dotfiles/niri/.config/niri/config.kdl;
 
   xdg.configFile."ghostty/config".source = ./dotfiles/ghostty/.config/ghostty/config;
 

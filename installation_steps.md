@@ -37,8 +37,8 @@ before replacing them; Git-backed flakes only include files known to Git, so
 new configuration files need to be added to the Git index before building.
 
 Compare the freshly generated `/etc/nixos/hardware-configuration.nix` and the
-actual disks with this repository's `hardware-configuration.nix` and
-`configuration.nix`. Reconcile the LUKS, root, EFI boot, and swap devices;
+actual disks with this repository's `hardware-configuration.nix` and Alien's
+host profile in `modules/hosts/alien`. Reconcile the LUKS, root, EFI boot, and swap devices;
 freshly formatted volumes generally have new UUIDs. Also review the host
 name, user, boot loader, keyd keyboard ID, and hardware-specific graphics and
 desktop settings. Do not copy disk identifiers or keyboard IDs blindly.
@@ -47,7 +47,7 @@ The flake output and paths below assume the user is `manoloess` and the host
 output is `alien`; adapt them deliberately for other systems. Preserve the
 fresh installation's `system.stateVersion` and choose Home Manager's
 `home.stateVersion` appropriately rather than treating either as an upgrade
-switch.
+switch. Alien's values are in `modules/hosts/alien/default.nix`.
 
 ## 3. Assign the trusted home Wi-Fi profile
 
