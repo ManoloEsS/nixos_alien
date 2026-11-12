@@ -11,8 +11,6 @@
 
     noctalia.url = "github:noctalia-dev/noctalia";
     herdr.url = "github:herdrdev/herdr/v0.9.5";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
 
     nvim-config = {
       url = "github:ManoloEsS/kickstart.nvim/master";
@@ -25,7 +23,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, noctalia, herdr, disko, nvim-config, yazi-tokyo-night, ... }: {
+  outputs = { nixpkgs, home-manager, noctalia, herdr, nvim-config, yazi-tokyo-night, ... }: {
     nixosConfigurations.alien = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./configuration.nix 
@@ -44,15 +42,5 @@
       ];
     };
 
-    # Separate installation output: never apply its Disko layout implicitly.
-    nixosConfigurations.alien-install = self.nixosConfigurations.alien.extendModules {
-      modules = [
-        disko.nixosModules.disko
-        {
-          disabledModules = [ ./hardware-configuration.nix ];
-          imports = [ ./modules/hosts/alien/hardware.nix ./modules/hosts/alien/disko.nix ];
-        }
-      ];
-    };
   };
 }

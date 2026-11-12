@@ -31,9 +31,8 @@ the configuration declares.
 - [ ] Exercise Go, Python, C, and Rust LSPs and formatters in real projects.
 - [ ] Create a Nix dev shell for a real project and evaluate direnv's workflow.
 - [x] Enable and confirm zram swap; disk-backed swap and hibernation are not planned.
-- [ ] Complete and test the Disko installation workflow. The separate
-  `alien-install` output evaluates and builds, but its layout has not been
-  applied or boot-tested. The existing `alien` output still uses old UUIDs.
+- [ ] On a fresh installation, reconcile the generated hardware and filesystem
+  settings with the host configuration before activating it.
 - [ ] Decide whether plugin and Tree-sitter parser versions should also be
   Nix-managed; both currently remain mutable Neovim state.
 - [ ] Review the remaining Bash functions and choose whether `herdev` should

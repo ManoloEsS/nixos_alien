@@ -5,17 +5,6 @@ fresh NixOS installation. They require network access, local keyboard and
 display access, and an administrator account. The configuration is specific to
 the current laptop and user; adapting it to another host requires review.
 
-An experimental Disko layout exists in `modules/hosts/alien/disko.nix`. The
-separate `alien-install` flake output includes that layout and hardware settings
-without the old filesystem UUIDs. It evaluates and builds, but has not been
-applied or installation-tested. Do not run it against a disk until the workflow
-and exact target device have been reviewed; applying it destroys the selected
-disk. The steps below remain the current manual path using `alien`.
-
-The `alien` output still describes the currently installed UUID-based layout.
-After a future Disko installation, do not switch back to `alien` without first
-migrating its filesystem configuration; use the Disko-based output instead.
-
 ## 1. Prepare and install NixOS
 
 Back up any data and keys you need. Partitioning, formatting, or recreating a
