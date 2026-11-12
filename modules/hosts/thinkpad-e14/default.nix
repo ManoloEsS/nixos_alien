@@ -8,7 +8,8 @@
   # Avoid the interactive latency spikes observed with Wi-Fi power saving.
   networking.networkmanager.wifi.powersave = false;
 
-  # Target the internal keyboard; external keyboards keep their own mappings.
+  # Confirm this internal keyboard ID on the installed E14 with keyd. External
+  # keyboards keep their own mappings.
   services.keyd = {
     enable = true;
     keyboards.internal = {

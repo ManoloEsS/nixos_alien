@@ -5,6 +5,7 @@
     enable = true;
 
     keyboards.internal = {
+      # Confirm the internal keyboard ID on the installed machine with keyd.
       ids = [ "0001:0001:3ca03456" ];
 
       extraConfig = ''
