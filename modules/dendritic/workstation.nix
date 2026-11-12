@@ -12,6 +12,7 @@
       config.flake.modules.nixos.audio-bluetooth
       config.flake.modules.nixos.user
       config.flake.modules.nixos.workstation-apps
+      config.flake.modules.nixos.version-control
     ];
   };
 }

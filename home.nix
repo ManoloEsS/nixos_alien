@@ -11,7 +11,6 @@
   home.packages = [
     pkgs.wtype
     pkgs.eza
-    pkgs.jujutsu
     pkgs.opencode
     pkgs.lazygit
     pkgs.uv
