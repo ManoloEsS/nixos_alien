@@ -54,8 +54,10 @@ the configuration declares.
 - [ ] Review backups of data outside the flake: secrets, browser profiles,
   NetworkManager profiles, Neovim plugins, and mutable application state.
 
-Application screen sharing is a nice-to-have, not a parity requirement; test
-the desktop portals if that workflow becomes useful.
+Application screen sharing is a nice-to-have, not a parity requirement. PipeWire
+and the Niri-compatible desktop portals are configured; browser screen sharing
+has not been tested end-to-end. PipeWire JACK support is declared but awaits
+activation.
 
 Docker and Docker Compose are active on Alien, using sudo rather than
 docker-group access. Compose has not yet been tested with a project, and
