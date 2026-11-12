@@ -23,13 +23,19 @@ the configuration declares.
 - [x] Authenticate Tailscale and verify fresh LAN and Tailscale SSH connections.
 - [x] Switch to firewalld with a restrictive default and assign the home Wi-Fi
   profile to the NixOS zone allowing SSH and mDNS.
+- [x] Activate the shared dendritic workstation configuration on Alien.
+- [x] Install global Rust tools and verify rustc, Cargo, rust-analyzer, and rustfmt.
+- [x] Test a Go dev shell with direnv, a project-specific Go version, `go test`,
+  and Neovim gopls attachment in a small test project.
+- [x] Activate Docker and Docker Compose with sudo-only daemon access; run the
+  Docker hello-world container successfully.
 
 ## Next work
 
 - [ ] Test the firewall on an untrusted network, including Tailscale access and
   LAN SSH denial; test home access again after reconnecting.
-- [ ] Exercise Go, Python, C, and Rust LSPs and formatters in real projects.
-- [ ] Create a Nix dev shell for a real project and evaluate direnv's workflow.
+- [ ] Exercise language servers, formatters, and project shells in real projects
+  as needed. Python, C, and Rust workflows remain untested.
 - [x] Enable and confirm zram swap; disk-backed swap and hibernation are not planned.
 - [ ] On a fresh installation, reconcile the generated hardware and filesystem
   settings with the host configuration before activating it.
@@ -42,18 +48,17 @@ the configuration declares.
 - [ ] Review Wi-Fi powersave only if needed. Do not copy ThinkPad battery
   thresholds to alien; its previously inspected battery did not expose the
   relevant controls. Automatic login remains a per-machine decision.
-- [ ] Finish the dendritic shared workstation and host profiles. The workspace
-  refactor builds for Alien but has not been synchronized or activated there.
-  The E14 module is preliminary and needs installation-specific hardware and
-  storage, boot choices, state versions, and a separate battery-limit design.
+- [ ] Finish the E14 host profile. Its composition is preliminary and needs
+  installation-specific hardware and storage, boot choices, state versions,
+  and a separate battery-limit design.
 - [ ] Review backups of data outside the flake: secrets, browser profiles,
   NetworkManager profiles, Neovim plugins, and mutable application state.
 
 Application screen sharing is a nice-to-have, not a parity requirement; test
 the desktop portals if that workflow becomes useful.
 
-Docker and Docker Compose are declared for the shared workstation, using sudo
-rather than docker-group access; activation and runtime testing are pending.
-Published container ports require separate firewall review. Flatpak
+Docker and Docker Compose are active on Alien, using sudo rather than
+docker-group access. Compose has not yet been tested with a project, and
+published container ports require separate firewall review. Flatpak
 applications and RDP are not required by default. A separate automated
 workstation verification phase is not currently planned.
