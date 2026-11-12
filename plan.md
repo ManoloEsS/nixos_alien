@@ -1,49 +1,53 @@
 # NixOS workstation plan
 
-Adapt the functionality of `atomic_laptop` for NixOS, keeping the setup minimal, reproducible, and suitable for multiple machines. Add features in small, verified steps.
+Adapt the useful workstation behavior from Fedora Atomic to NixOS, preferring
+NixOS modules, Home Manager, and project-specific development shells over
+distribution-specific mechanisms. Track runtime checks separately from what
+the configuration declares.
 
-## Done on alien
+## Working on alien
 
-- [x] Pin Nixpkgs, Home Manager, and Noctalia with a flake and lock file.
-- [x] Configure GDM, Niri, and Noctalia; retain GNOME as a fallback and disable its core-app collection.
-- [x] Manage Niri, Noctalia, and Ghostty configurations with Home Manager.
-- [x] Install Ghostty and use NVIDIA offloading for its Niri shortcut; keep Kitty as a fallback.
-- [x] Install JetBrains Mono Nerd Font and configure the pointer theme.
-- [x] Install Brave and Nautilus; manage Brave's default browser associations.
-- [x] Configure networking, Bluetooth, power profiles, UPower, PipeWire, and OpenSSH.
-- [x] Install Git, GitHub CLI, and Neovim.
-- [x] Restore universal clipboard shortcuts with `wtype` and a Home Manager-managed helper.
-- [x] Restore the touchpad toggle using a writable, optional Niri state file.
-- [x] Select the default Nixpkgs kernel instead of the latest kernel.
-- [x] Investigate silent audio; sound is working again, but the underlying cause remains unknown.
+- [x] Boot the fresh NixOS installation with encrypted root and systemd-boot.
+- [x] Apply the locked NixOS and Home Manager configuration; retain GNOME as a
+  fallback alongside GDM, Niri, and Noctalia.
+- [x] Configure Brave as the default browser and use Alacritty for the Niri
+  terminal shortcut. Keep Ghostty installed with its own configuration.
+- [x] Install JetBrains Mono Nerd Font, keyd for the internal keyboard, audio,
+  Bluetooth, power services, and the Niri desktop helpers. The user confirmed
+  the touchpad toggle and universal clipboard shortcuts work.
+- [x] Install a flake-pinned Neovim configuration and Nix-managed language
+  tools; confirm Lua LSP attachment and formatter availability.
+- [x] Configure Bash, fzf, Starship, zoxide, direnv, and the selected CLI tools.
+- [x] Install Herdr from its upstream flake and configure it; the user reports
+  it works.
+- [x] Authenticate Tailscale and verify fresh LAN and Tailscale SSH connections.
+- [x] Switch to firewalld with a restrictive default and assign the home Wi-Fi
+  profile to the NixOS zone allowing SSH and mDNS.
 
-## Desktop and usability
+## Next work
 
-- [ ] Make `notify-send` available system-wide and verify touchpad-toggle notifications.
-- [ ] Verify audio still works after a direct NixOS reboot; investigate further if it fails again.
-- [ ] Replace or remove the Fedora-specific update shortcut; review other copied shortcuts and scripts.
-- [ ] Verify the Brave picture-in-picture rule and other desired Niri/Noctalia functionality.
-- [ ] Decide whether to keep the GNOME fallback after Niri is established.
+- [ ] Test the firewall on an untrusted network, including Tailscale access and
+  LAN SSH denial; test home access again after reconnecting.
+- [ ] Exercise Go, Python, C, and Rust LSPs and formatters in real projects.
+- [ ] Create a Nix dev shell for a real project and evaluate direnv's workflow.
+- [x] Enable and confirm zram swap; disk-backed swap and hibernation are not planned.
+- [ ] Complete and test the Disko installation workflow. The separate
+  `alien-install` output evaluates and builds, but its layout has not been
+  applied or boot-tested. The existing `alien` output still uses old UUIDs.
+- [ ] Decide whether plugin and Tree-sitter parser versions should also be
+  Nix-managed; both currently remain mutable Neovim state.
+- [ ] Review the remaining Bash functions and choose whether `herdev` should
+  remain an alias for Herdr or represent a separate project workflow.
+- [ ] Check screen sharing, portals, audio after reboot, and other desktop
+  behavior as needed. Keep GNOME fallback until deliberately reconsidered.
+- [ ] Review Wi-Fi powersave only if needed. Do not copy ThinkPad battery
+  thresholds to alien; its previously inspected battery did not expose the
+  relevant controls. Automatic login remains a per-machine decision.
+- [ ] Separate reusable workstation settings from host-specific storage,
+  keyboard, GPU, and boot configuration when another host is added.
+- [ ] Review backups of data outside the flake: secrets, browser profiles,
+  NetworkManager profiles, Neovim plugins, and mutable application state.
 
-## Shell and development tools
-
-- [ ] Choose and declaratively install the desired CLI tools from the Fedora setup.
-- [ ] Adapt Bash settings, aliases, and functions without Fedora, Mise, or Toolbx assumptions.
-- [ ] Manage Starship, tmux, Yazi, and Herdr configuration if desired.
-- [ ] Restore the separate Neovim configuration and decide how to manage its plugins and dependencies reproducibly.
-- [ ] Explore project-specific Nix development shells for runtimes and build tools.
-
-## Remote access and containers
-
-- [ ] Decide whether to configure Tailscale and Tailscale SSH.
-- [ ] Review the effective firewall and decide on a trusted-network SSH policy without losing access.
-- [ ] Decide whether to configure rootless Podman, Compose, and a container-based development workflow.
-- [ ] Decide whether FreeRDP and the remote desktop launcher are needed.
-
-## Multiple machines and maintenance
-
-- [ ] Separate shared desktop and user settings from alien-specific hardware and GPU settings.
-- [ ] Add `remote` and `desktop` configurations when their hardware and requirements are known.
-- [ ] Establish a deliberate flake update, rebuild, verification, and rollback workflow.
-- [ ] Review state outside the flake, including browser profiles, Noctalia overrides, credentials, and editor plugins.
-- [ ] Evaluate keyd remapping, Wi-Fi power saving, and battery charge limits per machine; do not copy hardware-specific settings blindly.
+Containers, Flatpak applications, and RDP are not required by default. Add
+them only when a concrete workflow needs them. A separate automated workstation
+verification phase is not currently planned.

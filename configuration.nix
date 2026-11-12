@@ -29,7 +29,6 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages;
 
-  boot.initrd.luks.devices."luks-f83c8f88-7234-4a0f-8275-51f40a89a374".device = "/dev/disk/by-uuid/f83c8f88-7234-4a0f-8275-51f40a89a374";
   networking.hostName = "alien"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -40,12 +39,23 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Unassigned connections are restrictive; the home Wi-Fi profile is
+  # assigned to nixos-fw-default separately through NetworkManager.
+  networking.nftables.enable = true;
+  services.firewalld = {
+    enable = true;
+    settings.DefaultZone = "drop";
+  };
+
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
   # Enable power settings
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
+
+  # Compressed RAM-backed swap for memory pressure, not hibernation.
+  zramSwap.enable = true;
 
   # Enable Tailscale
   services.tailscale = {
@@ -161,6 +171,18 @@
     bat
     fastfetch
     btop
+    # Neovim language servers and formatters; project shells can add toolchains.
+    clang-tools
+    gopls
+    ruff
+    basedpyright
+    rust-analyzer
+    rustfmt
+    lua-language-server
+    stylua
+    prettier
+    prettierd
+    markdownlint-cli2
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

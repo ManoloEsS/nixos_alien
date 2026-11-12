@@ -23,7 +23,7 @@ n() {
 }
 
 herdev() {
-  toolbox run --container dev herdr
+  herdr "$@"
 }
 
 adm() {

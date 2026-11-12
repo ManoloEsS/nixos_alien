@@ -12,7 +12,24 @@
 
   home.packages = [
     pkgs.wtype
+    pkgs.eza
+    pkgs.jujutsu
+    pkgs.opencode
+    pkgs.lazygit
+    pkgs.uv
+    pkgs.alacritty
   ];
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    GIT_EDITOR = "nvim";
+    SUDO_EDITOR = "nvim";
+    SYSTEMD_EDITOR = "nvim";
+    BAT_THEME = "ansi";
+    MANROFFOPT = "-c";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+  };
 
   # Utilities script sourcing
   home.file.".local/bin/universal-clipboard".source = ./dotfiles/utilities/universal-clipboard;
@@ -32,6 +49,23 @@
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+  xdg.configFile."starship.toml".source = ./dotfiles/starship/.config/starship.toml;
+
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
   };
   
 
@@ -57,6 +91,10 @@
   xdg.configFile."niri/config.kdl".source = ./dotfiles/niri/.config/niri/config.kdl;
 
   xdg.configFile."ghostty/config".source = ./dotfiles/ghostty/.config/ghostty/config;
+
+  xdg.configFile."alacritty/alacritty.toml".source = ./dotfiles/alacritty/.config/alacritty/alacritty.toml;
+
+  xdg.configFile."herdr/config.toml".source = ./dotfiles/herdr/.config/herdr/config.toml;
 
   xdg.configFile."tmux/tmux.conf".source = ./dotfiles/tmux/.config/tmux/tmux.conf;
 
