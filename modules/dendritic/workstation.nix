@@ -13,6 +13,7 @@
       config.flake.modules.nixos.user
       config.flake.modules.nixos.workstation-apps
       config.flake.modules.nixos.version-control
+      config.flake.modules.nixos.development
     ];
   };
 }

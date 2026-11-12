@@ -29,8 +29,10 @@ files and other ordinary NixOS modules are outside the auto-discovered tree.
 The dendritic refactor has been built and compared with the previous Alien
 configuration but has not yet been synchronized or activated on the laptop.
 
-`modules/hosts/thinkpad-e14` records the E14's Wi-Fi and keyboard preferences,
-but is not yet a complete or installable NixOS configuration. It needs its own
+The preliminary E14 composition in `modules/dendritic/thinkpad-e14.nix` selects
+the shared workstation and `modules/hosts/thinkpad-e14`, which records the E14's
+Wi-Fi and keyboard preferences. It is not yet a complete or installable NixOS
+configuration and is not exposed as a host output. It needs its own
 generated hardware and storage settings, hostname, and installation state
 versions before a flake output can be used. Its optional battery charge-limit
 behavior also needs a separate design and test; Fedora's existing setup remains
