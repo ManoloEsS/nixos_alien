@@ -1,21 +1,21 @@
 # Installation steps
 
-These steps describe bringing the `alien` workstation configuration onto a
-fresh NixOS installation. They require network access, local keyboard and
-display access, and an administrator account. The configuration is specific to
-the current laptop and user; adapting it to another host requires review.
+These steps describe bringing the workstation configuration onto a fresh
+NixOS installation. They require network access, local keyboard and display
+access, and an administrator account. Choose the correct host-specific section
+and output; never use another machine's hardware settings.
 
 ## Choose the machine first
 
 | Machine | Desired hostname | Flake output | Status |
 | --- | --- | --- | --- |
 | Alienware | `alien` | `alien` | Available; reconcile the new hardware configuration before building. |
-| ThinkPad E14 | `remote` | Not yet available | The E14 feature composition exists, but a real `remote` output and installation-specific settings must be added before these steps can build it. |
+| ThinkPad E14 | `remote` | `remote` | Prepared for the current E14 installation; build and boot testing are pending. |
 
 Do **not** use Alien's flake output or hardware identifiers to install the E14.
-The sections below give the working Alien path and identify the E14-specific
-steps that must be completed once its output is implemented. The E14 workflow
-has not yet been installation-tested.
+The sections below give separate Alien and E14 paths. The `remote` output
+describes the current E14 installation only; after any reinstall, reconcile
+its hardware, LUKS, swap, and boot settings before building or switching.
 
 ## 1. Prepare and install NixOS
 
@@ -68,8 +68,8 @@ before replacing them; Git-backed flakes only include files known to Git, so
 new configuration files need to be added to the Git index before building.
 
 Compare the freshly generated `/etc/nixos/hardware-configuration.nix` and the
-actual disks with this repository's `hardware-configuration.nix` and Alien's
-host profile in `modules/hosts/alien`. Reconcile the LUKS, root, EFI boot, and swap devices;
+actual disks with the correct host's files below. Reconcile the LUKS, root,
+EFI boot, and swap devices;
 freshly formatted volumes generally have new UUIDs. Also review the host
 name, user, boot loader, keyd keyboard ID, and hardware-specific graphics and
 desktop settings. Do not copy disk identifiers or keyboard IDs blindly.
@@ -106,25 +106,34 @@ installer's bootloader settings in `/etc/nixos/configuration.nix` with
 chose a different loader. Confirm the internal keyboard ID and the two state
 versions in that host file as well.
 
-### E14 (`remote`): preparation still required
+### E14 (`remote`): reconcile the generated hardware file
 
-Before using this guide to activate the E14, add and review a `remote` NixOS
-flake output that selects `flake.modules.nixos.thinkpad-e14` and a separate
-E14 hardware file. After a new installation, copy or reconcile the generated
-`/etc/nixos/hardware-configuration.nix` into that E14-specific file, **not**
-Alien's file. Set `networking.hostName` to `remote`, use the installer-selected
-bootloader, and choose the installation's system and Home Manager state
-versions. Confirm the keyd internal-keyboard ID on the installed system.
+The `remote` output imports `modules/hosts/remote/hardware-configuration.nix`,
+not Alien's root-level file. Inspect the installer configuration, hardware file,
+and actual devices before editing:
 
-These are implementation prerequisites, not completed commands: `#remote`
-currently does not exist. Do not proceed with an E14 switch until the host
-output and its actual hardware configuration have been added and reviewed.
+```sh
+cat /etc/nixos/hardware-configuration.nix
+cat /etc/nixos/configuration.nix
+cat modules/hosts/remote/hardware-configuration.nix
+cat modules/hosts/remote/default.nix
+lsblk -f
+```
 
-The flake output and paths below assume the user is `manoloess` and the host
-output is `alien`; adapt them deliberately for other systems. Preserve the
-fresh installation's `system.stateVersion` and choose Home Manager's
-`home.stateVersion` appropriately rather than treating either as an upgrade
-switch. Alien's values are in `modules/hosts/alien/default.nix`.
+For a new installation, reconcile the generated hardware file with
+`modules/hosts/remote/hardware-configuration.nix`; save any existing version
+before replacing it. Also inspect **both** installer files: the current E14
+installer placed the encrypted swap unlock definition in
+`/etc/nixos/configuration.nix`, not the generated hardware file. Update or
+remove the corresponding LUKS and swap declarations in the remote host profile
+to match the new installation. The current E14 uses zram plus an existing
+encrypted disk-swap partition; a later installer layout may differ.
+
+Review hostname `remote`, the selected bootloader, keyd keyboard ID, and the
+installation's system and Home Manager state versions. Never use the old UUIDs
+without checking them against the installed system. Keep local recovery access
+and do not switch or reboot until root, boot, and all encrypted swap settings
+have been reviewed and the `remote` output builds successfully.
 
 ## 3. Assign the trusted home Wi-Fi profile
 
@@ -159,9 +168,20 @@ the first build and switch. The target configuration enables them permanently.
 The build may download packages and write to the Nix store; the switch changes
 the running system, services, firewall, and boot configuration.
 
+**Alien only:**
+
 ```sh
 nix --extra-experimental-features 'nix-command flakes' build --no-link /home/manoloess/nixos_alien#nixosConfigurations.alien.config.system.build.toplevel
 sudo env NIX_CONFIG='experimental-features = nix-command flakes' nixos-rebuild switch --flake /home/manoloess/nixos_alien#alien
+```
+
+**E14 (`remote`) only:** use these commands only after reviewing its hardware,
+boot, encrypted swap, and hostname settings above. The current E14 profile has
+not yet been activated or boot-tested.
+
+```sh
+nix --extra-experimental-features 'nix-command flakes' build --no-link /home/manoloess/nixos_alien#nixosConfigurations.remote.config.system.build.toplevel
+sudo env NIX_CONFIG='experimental-features = nix-command flakes' nixos-rebuild switch --flake /home/manoloess/nixos_alien#remote
 ```
 
 Run the switch locally with a recovery path available: firewall and network
@@ -262,8 +282,8 @@ services.displayManager.autoLogin.enable = true;
 services.displayManager.autoLogin.user = "manoloess";
 ```
 
-For the E14, add the same settings to its **host-specific** NixOS module once
-its `remote` output exists, and build/switch that output instead. Verify which
+For the E14, add the same settings to `modules/hosts/remote/default.nix` and
+build/switch the `remote` output instead. Verify which
 desktop session GDM automatically starts; automatic login does not guarantee
 Niri is selected. Remove or disable the settings and rebuild to turn it off.
 

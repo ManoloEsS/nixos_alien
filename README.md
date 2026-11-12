@@ -27,19 +27,18 @@ configuration, and system and Home Manager state versions. That host profile
 imports the existing generated `hardware-configuration.nix`. Generated hardware
 files and other ordinary NixOS modules are outside the auto-discovered tree.
 
-The dendritic refactor has been built and compared with the previous Alien
-configuration but has not yet been synchronized or activated on the laptop.
+The shared dendritic configuration has been activated on Alien.
 
 The preliminary E14 composition in `modules/dendritic/thinkpad-e14.nix` selects
 the shared workstation and `modules/hosts/thinkpad-e14`, which records the E14's
 Wi-Fi and internal-keyboard preferences and changes its Niri terminal shortcut
-to Ghostty. Alien retains Alacritty. It is not yet a complete or installable NixOS
-configuration and is not exposed as a host output. It needs its own
-generated hardware and storage settings, hostname, and installation state
-versions before a flake output can be used. Its preliminary battery feature
+to Ghostty. Alien retains Alacritty. The `remote` output adds the current E14
+installation's hardware, boot, encrypted disk-swap, hostname, and state-version
+settings. It must be reconciled with any future reinstall and has not yet been
+activated or boot-tested. Its preliminary battery feature
 declares 75/80 limits and restores them at boot only when UPower's saved state
 is enabled; on a fresh install the limit must be enabled explicitly. This
-behavior has not been tested on NixOS, and Fedora's setup remains untouched.
+behavior has not been tested on NixOS.
 
 ## Fresh installation and encryption
 
