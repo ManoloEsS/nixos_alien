@@ -37,8 +37,8 @@ the configuration declares.
   Nix-managed; both currently remain mutable Neovim state.
 - [ ] Review the remaining Bash functions and choose whether `herdev` should
   remain an alias for Herdr or represent a separate project workflow.
-- [ ] Check screen sharing, portals, audio after reboot, and other desktop
-  behavior as needed. Keep GNOME fallback until deliberately reconsidered.
+- [ ] Check audio after reboot and other desktop behavior as needed. Keep GNOME
+  fallback until deliberately reconsidered.
 - [ ] Review Wi-Fi powersave only if needed. Do not copy ThinkPad battery
   thresholds to alien; its previously inspected battery did not expose the
   relevant controls. Automatic login remains a per-machine decision.
@@ -49,6 +49,11 @@ the configuration declares.
 - [ ] Review backups of data outside the flake: secrets, browser profiles,
   NetworkManager profiles, Neovim plugins, and mutable application state.
 
-Containers, Flatpak applications, and RDP are not required by default. Add
-them only when a concrete workflow needs them. A separate automated workstation
-verification phase is not currently planned.
+Application screen sharing is a nice-to-have, not a parity requirement; test
+the desktop portals if that workflow becomes useful.
+
+Docker and Docker Compose are declared for the shared workstation, using sudo
+rather than docker-group access; activation and runtime testing are pending.
+Published container ports require separate firewall review. Flatpak
+applications and RDP are not required by default. A separate automated
+workstation verification phase is not currently planned.

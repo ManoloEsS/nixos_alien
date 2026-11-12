@@ -14,6 +14,7 @@
       config.flake.modules.nixos.workstation-apps
       config.flake.modules.nixos.version-control
       config.flake.modules.nixos.development
+      config.flake.modules.nixos.docker
     ];
   };
 }
