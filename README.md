@@ -2,8 +2,8 @@
 
 NixOS configuration for `alien`, using flakes and Home Manager for a Niri and
 Noctalia workstation. Brave Origin is the configured default browser, with
-standard Brave retained during the transition; Alacritty is the Niri
-terminal shortcut, with Ghostty retained separately. See [plan.md](plan.md)
+standard Brave retained during the transition. Ghostty is the shared Niri
+terminal shortcut; the Alien test host overrides it with Alacritty. See [plan.md](plan.md)
 for current status and remaining work, and [installation steps](installation_steps.md)
 for the fresh-install workflow and manual configuration.
 
@@ -29,7 +29,8 @@ files and other ordinary NixOS modules are outside the auto-discovered tree.
 
 The shared dendritic configuration has been activated on Alien.
 
-The `remote` output selects the shared workstation and `modules/hosts/remote`.
+The `remote` output is the primary workstation profile; `alien` is the test
+host. `remote` selects the shared workstation and `modules/hosts/remote`.
 That host's files contain the E14's hardware, boot, encrypted disk swap,
 hostname, state versions, Wi-Fi, internal-keyboard, and battery settings. Its
 Niri terminal shortcut uses Ghostty; Alien retains Alacritty. The E14 has booted

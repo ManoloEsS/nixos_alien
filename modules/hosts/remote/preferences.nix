@@ -1,5 +1,5 @@
 # E14-specific preferences for the remote host.
-{ lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [ ./battery.nix ];
@@ -26,11 +26,4 @@
     };
   };
 
-  # Keep shared Niri bindings, but launch Ghostty on this host.
-  home-manager.users.manoloess.xdg.configFile."niri/config.kdl".source = lib.mkForce (
-    pkgs.writeText "niri-thinkpad-e14.kdl" (builtins.replaceStrings
-      [ ''spawn "alacritty"'' ]
-      [ ''spawn "ghostty"'' ]
-      (builtins.readFile ../../../dotfiles/niri/.config/niri/config.kdl))
-  );
 }
