@@ -1,5 +1,4 @@
-# E14 preferences observed on its Fedora installation. This module is not a
-# complete NixOS host: installation-specific hardware and storage are needed.
+# E14-specific preferences for the remote host.
 { lib, pkgs, ... }:
 
 {

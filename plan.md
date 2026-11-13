@@ -10,9 +10,9 @@ the configuration declares.
 - [x] Boot the fresh NixOS installation with encrypted root and systemd-boot.
 - [x] Apply the locked NixOS and Home Manager configuration; retain GNOME as a
   fallback alongside GDM, Niri, and Noctalia.
-- [ ] Activate and test Brave Origin as the default browser; retain standard
-  Brave and its profile during the transition. Alien uses Alacritty for the
-  Niri terminal shortcut and keeps Ghostty installed with its own configuration.
+- [x] Activate and test Brave Origin as the default browser on Alien; retain
+  standard Brave and its profile during the transition. Alien uses Alacritty
+  for the Niri terminal shortcut and keeps Ghostty installed.
 - [x] Install JetBrains Mono Nerd Font, keyd for the internal keyboard, audio,
   Bluetooth, power services, and the Niri desktop helpers. The user confirmed
   the touchpad toggle and universal clipboard shortcuts work.
@@ -37,7 +37,8 @@ the configuration declares.
   LAN SSH denial; test home access again after reconnecting.
 - [ ] Exercise language servers, formatters, and project shells in real projects
   as needed. Python, C, and Rust workflows remain untested.
-- [x] Enable and confirm zram swap; disk-backed swap and hibernation are not planned.
+- [x] Enable and confirm zram swap on Alien; it has no disk-backed swap, and
+  hibernation is not configured.
 - [ ] On a fresh installation, reconcile the generated hardware and filesystem
   settings with the host configuration before activating it.
 - [ ] Decide whether plugin and Tree-sitter parser versions should also be
@@ -49,16 +50,18 @@ the configuration declares.
 - [ ] Review Wi-Fi powersave only if needed. Do not copy ThinkPad battery
   thresholds to alien; its previously inspected battery did not expose the
   relevant controls. Automatic login remains a per-machine decision.
-- [ ] Finish the E14 host profile. Its composition is preliminary and needs
-  installation-specific hardware and storage, boot choices, state versions,
-  and runtime testing of its preliminary battery-limit and travel-mode feature.
+- [x] Build, activate, and boot the E14 `remote` profile with its own hardware,
+  encrypted disk swap, zram, and host settings.
+- [ ] Test the E14 battery-limit and travel-mode toggle across reboots; the
+  current hardware reports 75/80, but toggle persistence is unverified.
 - [ ] Review backups of data outside the flake: secrets, browser profiles,
   NetworkManager profiles, Neovim plugins, and mutable application state.
+- [ ] Review Tailscale machine naming: Alien currently uses `alien-1`, while
+  the desired MagicDNS name is `alien`.
 
 Application screen sharing is a nice-to-have, not a parity requirement. PipeWire
 and the Niri-compatible desktop portals are configured; browser screen sharing
-has not been tested end-to-end. PipeWire JACK support is declared but awaits
-activation.
+has not been tested end-to-end. PipeWire JACK support is enabled.
 
 Docker and Docker Compose are active on Alien, using sudo rather than
 docker-group access. Compose has not yet been tested with a project, and

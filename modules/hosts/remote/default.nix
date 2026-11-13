@@ -1,9 +1,9 @@
 # REMOTE (E14) ONLY: after reinstall, review the adjacent hardware file,
-# bootloader, and internal keyboard ID in ../thinkpad-e14/default.nix.
+# bootloader, and internal keyboard ID in ./preferences.nix.
 { pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ./preferences.nix ];
 
   networking.hostName = "remote";
 

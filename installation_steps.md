@@ -45,6 +45,22 @@ swap, bootloader, keyboard ID, and both state versions before continuing.
 | `alien` | `hardware-configuration.nix` | `modules/hosts/alien/default.nix` |
 | `remote` | `modules/hosts/remote/hardware-configuration.nix` | `modules/hosts/remote/default.nix` |
 
+After reviewing the files, back up the appropriate existing hardware file to a
+new filename, then replace or merge it with the installer-generated file. For a
+direct replacement, use **only the command for this machine** and confirm the
+overwrite prompt:
+
+```sh
+# Alienware only
+cp -i /etc/nixos/hardware-configuration.nix hardware-configuration.nix
+
+# E14 only
+cp -i /etc/nixos/hardware-configuration.nix modules/hosts/remote/hardware-configuration.nix
+```
+
+Review the resulting `git diff` and restore any still-needed settings before
+building. Replacing a file removes its existing comments and manual additions.
+
 **E14 encrypted swap:** the installer may put its LUKS unlock setting in
 `/etc/nixos/configuration.nix`, not the generated hardware file. Preserve or
 update it in the `remote` hardware file if the new installation uses that swap;

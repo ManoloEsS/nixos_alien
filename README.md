@@ -29,13 +29,12 @@ files and other ordinary NixOS modules are outside the auto-discovered tree.
 
 The shared dendritic configuration has been activated on Alien.
 
-The preliminary E14 composition in `modules/dendritic/thinkpad-e14.nix` selects
-the shared workstation and `modules/hosts/thinkpad-e14`, which records the E14's
-Wi-Fi and internal-keyboard preferences and changes its Niri terminal shortcut
-to Ghostty. Alien retains Alacritty. The `remote` output adds the current E14
-installation's hardware, boot, encrypted disk-swap, hostname, and state-version
-settings. It must be reconciled with any future reinstall and has not yet been
-activated or boot-tested. Its preliminary battery feature
+The `remote` output selects the shared workstation and `modules/hosts/remote`.
+That host's files contain the E14's hardware, boot, encrypted disk swap,
+hostname, state versions, Wi-Fi, internal-keyboard, and battery settings. Its
+Niri terminal shortcut uses Ghostty; Alien retains Alacritty. The E14 has booted
+this configuration, but hardware settings must be reconciled after a reinstall.
+Its battery feature
 declares 75/80 limits and restores them at boot only when UPower's saved state
 is enabled; on a fresh install the limit must be enabled explicitly. This
 behavior has not been tested on NixOS.
