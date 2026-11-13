@@ -16,4 +16,8 @@
   # as an upgrade. For a fresh install, review the installer's values.
   system.stateVersion = "26.05";
   home-manager.users.manoloess.home.stateVersion = "26.05";
+
+  # Uncomment to enable automatic login
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "manoloess";
 }

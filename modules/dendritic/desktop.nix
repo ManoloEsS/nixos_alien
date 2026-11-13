@@ -3,6 +3,7 @@
 {
   flake.modules.nixos.desktop = { ... }: {
     programs.niri.enable = true;
+    services.displayManager.defaultSession = "niri";
 
     home-manager.users.manoloess = {
       imports = [ inputs.noctalia.homeModules.default ];
