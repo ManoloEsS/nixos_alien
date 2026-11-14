@@ -2,7 +2,14 @@
 
 {
   flake.modules.nixos.neovim = { pkgs, ... }: {
-    # Keep the existing tools available while LazyVim support is evaluated.
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
+    };
+
+    # Project shells can supply language toolchains alongside these tools.
     environment.systemPackages = with pkgs; [
       clang-tools
       gopls
@@ -18,32 +25,18 @@
       tree-sitter
     ];
 
-    home-manager.users.manoloess = {
-      imports = [ inputs.lazyvim-nix.homeManagerModules.default ];
+    home-manager.users.manoloess.home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      GIT_EDITOR = "nvim";
+      SUDO_EDITOR = "nvim";
+      SYSTEMD_EDITOR = "nvim";
+    };
 
-      programs.neovim = {
-        defaultEditor = true;
-        vimAlias = true;
-        viAlias = true;
-      };
-
-      programs.lazyvim = {
-        enable = true;
-        extras.lang = {
-          go = { enable = true; installDependencies = true; };
-          python = { enable = true; installDependencies = true; };
-          rust = { enable = true; installDependencies = true; };
-          nix = { enable = true; installDependencies = true; };
-        };
-      };
-
-      home.sessionVariables = {
-        EDITOR = "nvim";
-        VISUAL = "nvim";
-        GIT_EDITOR = "nvim";
-        SUDO_EDITOR = "nvim";
-        SYSTEMD_EDITOR = "nvim";
-      };
+    home-manager.users.manoloess.xdg.configFile = {
+      "nvim/init.lua".source = "${inputs.nvim-config}/init.lua";
+      "nvim/lua".source = "${inputs.nvim-config}/lua";
+      "nvim/.stylua.toml".source = "${inputs.nvim-config}/.stylua.toml";
     };
   };
 }

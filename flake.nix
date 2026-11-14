@@ -16,7 +16,10 @@
     noctalia.url = "github:noctalia-dev/noctalia";
     herdr.url = "github:herdrdev/herdr/master";
 
-    lazyvim-nix.url = "github:pfassina/lazyvim-nix";
+    nvim-config = {
+      url = "github:ManoloEsS/kickstart.nvim/master";
+      flake = false;
+    };
 
     yazi-tokyo-night = {
       url = "github:BennyOe/tokyo-night.yazi/8e6296f14daff24151c736ebd0b9b6cd89b02b03";

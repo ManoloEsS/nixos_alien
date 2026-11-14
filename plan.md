@@ -41,9 +41,8 @@ the configuration declares.
   hibernation is not configured.
 - [ ] On a fresh installation, reconcile the generated hardware and filesystem
   settings with the host configuration before activating it.
-- [ ] Build and test the proposed LazyVim migration, including Nix-managed
-  plugins and Tree-sitter parsers, before removing old editor tooling. The
-  previously deployed editor still manages those components as mutable state.
+- [ ] Decide whether plugin and Tree-sitter parser versions should also be
+  Nix-managed; both currently remain mutable Neovim state.
 - [ ] Review the remaining Bash functions and choose whether `herdev` should
   remain an alias for Herdr or represent a separate project workflow.
 - [ ] Check audio after reboot and other desktop behavior as needed. Keep GNOME
