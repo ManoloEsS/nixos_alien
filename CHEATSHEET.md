@@ -44,14 +44,13 @@ build the appropriate host, then commit/synchronize before switching.
 
 ```sh
 nix flake update nixpkgs       # system packages
-nix flake update nvim-config   # pinned Neovim configuration
+nix flake update lazyvim-nix   # LazyVim module and plugins
 nix flake update               # all inputs
 git diff -- flake.lock
 ```
 
-Herdr is pinned to a release tag in `flake.nix`: change that tag first, then
-run `nix flake update herdr`. Updating the Neovim input does not by itself pin
-or update its separately managed plugins and Tree-sitter parsers.
+Herdr follows its upstream branch; run `nix flake update herdr` to update its
+locked revision. LazyVim plugins and parsers are managed by its Nix module.
 
 ## Generations and recovery
 

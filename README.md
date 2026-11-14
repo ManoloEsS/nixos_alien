@@ -48,8 +48,8 @@ files and other ordinary NixOS modules are outside the auto-discovered tree.
   workstation-wide baseline.
 
 The current feature modules are composed for this workstation and expect the
-shared user and Home Manager setup from `user.nix`. Some editor tools also rely
-on the development baseline, such as Neovim's use of `goimports` from `gotools`.
+shared user and Home Manager setup from `user.nix`. Project shells can supply
+language runtimes alongside the workstation development baseline.
 
 The shared dendritic configuration has been activated on Alien.
 
@@ -117,21 +117,21 @@ local access before changing firewall or networking settings.
 
 ## Neovim and shell
 
-`flake.nix` follows `kickstart.nvim`'s `master` branch as a non-flake input;
-`flake.lock` pins the deployed revision. Home Manager links the editor files
-into `~/.config/nvim`, while leaving that directory writable for the
-`vim.pack` lockfile. Nix supplies the configured language servers and
-formatters on NixOS; Mason remains enabled in the editor configuration on
-non-NixOS systems. Plugins and Tree-sitter parsers are still downloaded and
-managed by Neovim, so they are not fully reproduced by this flake.
+The workstation configures LazyVim using the `lazyvim-nix` Home Manager module.
+Go, Python, Rust, and Nix extras request Nix-managed editor dependencies; their
+automatic dependency installation is experimental and needs testing. Language
+runtimes remain in the workstation baseline or project dev shells. The old
+editor tools remain installed until the new workflow has been verified.
 
-The old editable checkout is preserved at `~/kickstart.nvim` on alien. It had
-uncommitted changes when moved; inspect its status before updating it. Edit and
-commit editor changes in a separate checkout, push them to the tracked branch,
-then update only the editor input and rebuild:
+Before activating the migration, back up and inspect existing Neovim config,
+data, state, and Home Manager backup paths. LazyVim manages files under
+`~/.config/nvim` and parser paths under `~/.local/share/nvim`; existing files
+may conflict or be moved by Home Manager. The old editable checkout at
+`~/kickstart.nvim` on alien had uncommitted changes; preserve it. Review changes
+to the LazyVim input, update its lock entry, and build before switching:
 
 ```sh
-nix flake update nvim-config --flake /home/manoloess/nixos_alien
+nix flake update lazyvim-nix --flake /home/manoloess/nixos_alien
 ```
 
 Home Manager also manages Bash integrations, Starship, zoxide, fzf, and direnv
