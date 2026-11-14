@@ -22,7 +22,16 @@
       prettier
       prettierd
       markdownlint-cli2
+      tree-sitter
     ];
+
+    home-manager.users.manoloess.home.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      GIT_EDITOR = "nvim";
+      SUDO_EDITOR = "nvim";
+      SYSTEMD_EDITOR = "nvim";
+    };
 
     home-manager.users.manoloess.xdg.configFile = {
       "nvim/init.lua".source = "${inputs.nvim-config}/init.lua";

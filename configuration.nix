@@ -31,27 +31,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  services.gnome.core-apps.enable = false;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
 
   ############
   # Programs #
@@ -60,32 +44,20 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Install nix-ld for mason compatibility
+  # Compatibility for dynamically linked binaries not packaged by Nix.
   programs.nix-ld.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    git
-    gh
     wget
     nautilus
     brave
     brave-origin
-    ghostty
     libnotify
-    yazi
-    tmux
-    gnumake
     unzip
-    gcc
     ripgrep
     fd
-    tree-sitter
-    nodejs
-    python3
-    go
-    gotools
     bat
     fastfetch
     btop

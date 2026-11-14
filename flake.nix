@@ -14,7 +14,7 @@
     };
 
     noctalia.url = "github:noctalia-dev/noctalia";
-    herdr.url = "github:herdrdev/herdr/v0.9.5";
+    herdr.url = "github:herdrdev/herdr/master";
 
     nvim-config = {
       url = "github:ManoloEsS/kickstart.nvim/master";

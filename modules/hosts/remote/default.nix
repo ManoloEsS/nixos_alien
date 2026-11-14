@@ -17,7 +17,7 @@
   system.stateVersion = "26.05";
   home-manager.users.manoloess.home.stateVersion = "26.05";
 
-  # Uncomment to enable automatic login
+  # Automatic login is enabled for this host.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "manoloess";
 }

@@ -42,7 +42,7 @@ swap, bootloader, keyboard ID, and both state versions before continuing.
 
 | Host | Hardware file | Host settings |
 | --- | --- | --- |
-| `alien` | `hardware-configuration.nix` | `modules/hosts/alien/default.nix` |
+| `alien` | `modules/hosts/alien/hardware-configuration.nix` | `modules/hosts/alien/default.nix` |
 | `remote` | `modules/hosts/remote/hardware-configuration.nix` | `modules/hosts/remote/default.nix` |
 
 After reviewing the files, back up the appropriate existing hardware file to a
@@ -52,7 +52,7 @@ overwrite prompt:
 
 ```sh
 # Alienware only
-cp -i /etc/nixos/hardware-configuration.nix hardware-configuration.nix
+cp -i /etc/nixos/hardware-configuration.nix modules/hosts/alien/hardware-configuration.nix
 
 # E14 only
 cp -i /etc/nixos/hardware-configuration.nix modules/hosts/remote/hardware-configuration.nix

@@ -1,8 +1,11 @@
 { ... }:
 
 {
-  flake.modules.nixos.shell = { ... }: {
+  flake.modules.nixos.shell = { pkgs, ... }: {
+    environment.systemPackages = [ pkgs.tmux ];
+
     home-manager.users.manoloess = {
+      xdg.configFile."tmux/tmux.conf".source = ../../dotfiles/tmux/.config/tmux/tmux.conf;
       programs.bash.enable = true;
       home.file.".bash_aliases".source = ../../dotfiles/bash/.bash_aliases;
       home.file.".bash_functions".source = ../../dotfiles/bash/.bash_functions;

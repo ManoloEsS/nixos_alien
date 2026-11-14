@@ -1,7 +1,12 @@
 { ... }:
 
 {
-  flake.modules.nixos.version-control = { ... }: {
+  flake.modules.nixos.version-control = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      git
+      gh
+    ];
+
     home-manager.users.manoloess = {
       programs.git = {
         enable = true;

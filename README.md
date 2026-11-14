@@ -24,8 +24,32 @@ not enable every feature on every host.
 The `alien` output selects the workstation composition and
 `modules/hosts/alien`, which contains its hostname, boot choices, keyboard
 configuration, and system and Home Manager state versions. That host profile
-imports the existing generated `hardware-configuration.nix`. Generated hardware
+imports its adjacent `hardware-configuration.nix`. Generated hardware
 files and other ordinary NixOS modules are outside the auto-discovered tree.
+
+### Where settings belong
+
+- `modules/dendritic/workstation.nix` selects the shared workstation features.
+  Discovery makes feature modules available; this composition enables them.
+- `modules/dendritic/` contains shared feature modules. Group system settings
+  and Home Manager settings for a feature together where practical: for example,
+  Neovim and its tools in `neovim.nix`, the global development baseline in
+  `development.nix`, and shell integrations in `shell.nix`.
+- `modules/hosts/<host>/` holds machine-specific choices such as boot,
+  hardware, keyboard, and host overrides, including each host's hardware file.
+- `configuration.nix` and `home.nix` still contain shared settings that have
+  not yet been grouped into feature modules. Check these when changing a
+  feature until that consolidation is complete.
+- `dotfiles/` contains application configuration files linked by Home Manager,
+  as well as retained files that are not necessarily active. Check the module
+  references before assuming a file is deployed.
+- Project-specific language versions, build dependencies, and development
+  tools belong in the project's own dev shell and lockfiles, rather than the
+  workstation-wide baseline.
+
+The current feature modules are composed for this workstation and expect the
+shared user and Home Manager setup from `user.nix`. Some editor tools also rely
+on the development baseline, such as Neovim's use of `goimports` from `gotools`.
 
 The shared dendritic configuration has been activated on Alien.
 
@@ -52,7 +76,7 @@ put passphrases or secrets in this repository or the Nix store.
 
 Generate and review the new machine's hardware configuration. In particular,
 reconcile root, LUKS, boot, and swap devices with the actual installation before
-building or switching. The UUIDs in `hardware-configuration.nix` describe the
+building or switching. The UUIDs in `modules/hosts/alien/hardware-configuration.nix` describe the
 current installation only; recreating partitions generally changes them. Also
 review the host name, keyboard ID, GPU, user, and boot loader. Do not copy the
 existing host-specific values blindly to another machine.
@@ -119,10 +143,11 @@ Toolbx by default.
 
 Review changes before updating inputs. A normal rebuild uses existing locked
 revisions. Updating an input modifies `flake.lock`; synchronize that change
-back to the source-of-truth repository before it is lost. Herdr is explicitly
-pinned to the release tag in `flake.nix`: upgrading it requires changing that
-tag, updating its input, building, and switching. Its upstream flake builds
-from source, which can be slow.
+back to the source-of-truth repository before it is lost. Herdr follows its
+upstream `master` branch, with its revision pinned by `flake.lock`. Update its
+input explicitly to pick up newer commits, then build and switch. These commits
+may include unreleased changes. Its upstream flake builds from source, which
+can be slow.
 
 The systemd-boot menu offers previous NixOS generations. If a new generation
 fails to boot, select a previous entry; a local administrator can also roll
