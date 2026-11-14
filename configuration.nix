@@ -52,13 +52,10 @@
   environment.systemPackages = with pkgs; [
     wget
     nautilus
-    brave
-    brave-origin
     libnotify
     unzip
     ripgrep
     fd
-    bat
     fastfetch
     btop
   ];

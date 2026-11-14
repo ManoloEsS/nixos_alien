@@ -8,6 +8,8 @@
     ];
 
     home-manager.users.manoloess = {
+      home.packages = [ pkgs.lazygit ];
+
       programs.git = {
         enable = true;
         settings.user = {

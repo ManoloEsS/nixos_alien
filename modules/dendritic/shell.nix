@@ -2,9 +2,15 @@
 
 {
   flake.modules.nixos.shell = { pkgs, ... }: {
-    environment.systemPackages = [ pkgs.tmux ];
+    environment.systemPackages = [ pkgs.bat pkgs.tmux ];
 
     home-manager.users.manoloess = {
+      home.sessionVariables = {
+        BAT_THEME = "ansi";
+        MANROFFOPT = "-c";
+        MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      };
+
       xdg.configFile."tmux/tmux.conf".source = ../../dotfiles/tmux/.config/tmux/tmux.conf;
       programs.bash.enable = true;
       home.file.".bash_aliases".source = ../../dotfiles/bash/.bash_aliases;

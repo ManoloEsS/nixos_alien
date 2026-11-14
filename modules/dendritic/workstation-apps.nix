@@ -2,9 +2,20 @@
 
 {
   flake.modules.nixos.workstation-apps = { pkgs, ... }: {
-    environment.systemPackages = [ pkgs.ghostty pkgs.yazi ];
+    environment.systemPackages = with pkgs; [ brave brave-origin ghostty yazi ];
 
     home-manager.users.manoloess = {
+      xdg.mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "text/html" = "brave-origin.desktop";
+          "x-scheme-handler/http" = "brave-origin.desktop";
+          "x-scheme-handler/https" = "brave-origin.desktop";
+          "x-scheme-handler/about" = "brave-origin.desktop";
+          "x-scheme-handler/unknown" = "brave-origin.desktop";
+        };
+      };
+
       xdg.configFile."ghostty/config".source = ../../dotfiles/ghostty/.config/ghostty/config;
       xdg.configFile."alacritty/alacritty.toml".source = ../../dotfiles/alacritty/.config/alacritty/alacritty.toml;
       xdg.configFile."herdr/config.toml".source = ../../dotfiles/herdr/.config/herdr/config.toml;
