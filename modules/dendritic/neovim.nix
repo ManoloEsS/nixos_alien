@@ -36,6 +36,12 @@
     home-manager.users.manoloess = {
       imports = [ inputs.lazyvim-nix.homeManagerModules.default ];
 
+      # User aliases must use the same wrapper and tool PATH as LazyVim.
+      programs.neovim = {
+        vimAlias = true;
+        viAlias = true;
+      };
+
       programs.lazyvim = {
         enable = true;
         # Avoid the Trouble symbols statusline error; keep Trouble available.
