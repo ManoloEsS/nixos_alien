@@ -44,6 +44,8 @@
 
       programs.lazyvim = {
         enable = true;
+        # The pinned lazyvim-nix dependency map does not supply yamlls.
+        extraPackages = [ pkgs.yaml-language-server ];
         # Avoid the Trouble symbols statusline error; keep Trouble available.
         config.options = ''
           vim.g.trouble_lualine = false
@@ -56,6 +58,7 @@
           lang.python = { enable = true; installDependencies = true; };
           lang.rust = { enable = true; installDependencies = true; };
           lang.typescript = { enable = true; installDependencies = true; };
+          lang.yaml.enable = true;
           ui.smear-cursor.enable = true;
         };
         # Custom overlay plugin specs are linked separately; give lazy.nvim
