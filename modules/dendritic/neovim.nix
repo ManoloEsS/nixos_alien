@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 {
-  flake.modules.nixos.neovim = { pkgs, ... }: {
+  flake.modules.nixos.neovim = { lib, pkgs, ... }: {
     programs.neovim = {
       enable = true;
       defaultEditor = true;
@@ -33,10 +33,49 @@
       SYSTEMD_EDITOR = "nvim";
     };
 
-    home-manager.users.manoloess.xdg.configFile = {
-      "nvim/init.lua".source = "${inputs.nvim-config}/init.lua";
-      "nvim/lua".source = "${inputs.nvim-config}/lua";
-      "nvim/.stylua.toml".source = "${inputs.nvim-config}/.stylua.toml";
+    home-manager.users.manoloess = {
+      imports = [ inputs.lazyvim-nix.homeManagerModules.default ];
+
+      programs.lazyvim = {
+        enable = true;
+        # Avoid the Trouble symbols statusline error; keep Trouble available.
+        config.options = ''
+          vim.g.trouble_lualine = false
+        '';
+        extras = {
+          coding.blink.enable = true;
+          editor.snacks-picker.enable = true;
+          formatting.prettier = { enable = true; installDependencies = true; };
+          lang.go = { enable = true; installDependencies = true; };
+          lang.python = { enable = true; installDependencies = true; };
+          lang.rust = { enable = true; installDependencies = true; };
+          lang.typescript = { enable = true; installDependencies = true; };
+          ui.smear-cursor.enable = true;
+        };
+        # Custom overlay plugin specs are linked separately; give lazy.nvim
+        # explicit Nix-store paths instead of relying on runtime downloads.
+        plugins.custom-sources = ''
+          return {
+            { "ThePrimeagen/harpoon", dir = "${pkgs.vimPlugins.harpoon2}" },
+            { "chentoast/marks.nvim", dir = "${pkgs.vimPlugins.marks-nvim}" },
+            { "karb94/neoscroll.nvim", dir = "${pkgs.vimPlugins.neoscroll-nvim}" },
+            { "nvim-orgmode/orgmode", dir = "${pkgs.vimPlugins.orgmode}" },
+            { "nvim-orgmode/org-bullets.nvim", dir = "${inputs.org-bullets}" },
+            { "mikavilpas/yazi.nvim", dir = "${pkgs.vimPlugins.yazi-nvim}" },
+          }
+        '';
+      };
+
+      xdg.configFile = lib.genAttrs (map (name: "nvim/lua/plugins/${name}.lua") [
+        "blink" "harpoon" "hide-bufferline" "language-formatting"
+        "lazyvim-custom" "marks" "neo-tree" "neoscroll" "orgmode"
+        "smear-cursor" "yazi"
+      ]) (path: {
+        source = "${inputs.lazyvim-custom}/nvim/.config/${path}";
+      }) // {
+        "nvim/plugin/after/transparency.lua".source =
+          "${inputs.lazyvim-custom}/nvim/.config/nvim/plugin/after/transparency.lua";
+      };
     };
   };
 }

@@ -117,21 +117,19 @@ local access before changing firewall or networking settings.
 
 ## Neovim and shell
 
-`flake.nix` follows `kickstart.nvim`'s `master` branch as a non-flake input;
-`flake.lock` pins the deployed revision. Home Manager links the editor files
-into `~/.config/nvim`, while leaving that directory writable for the
-`vim.pack` lockfile. Nix supplies the configured language servers and
-formatters on NixOS; Mason remains enabled in the editor configuration on
-non-NixOS systems. Plugins and Tree-sitter parsers are still downloaded and
-managed by Neovim, so they are not fully reproduced by this flake.
+The proposed LazyVim setup uses the `lazyvim-nix` Home Manager module and
+the separately locked `lazyvim-custom` overlay. Language extras request editor
+dependencies through Nix; project shells can supply language runtimes. The
+module's automatic dependency installation is experimental, so verify the
+tools and custom plugins after activation. Existing editor tooling remains
+installed while the migration is evaluated.
 
 The old editable checkout is preserved at `~/kickstart.nvim` on alien. It had
-uncommitted changes when moved; inspect its status before updating it. Edit and
-commit editor changes in a separate checkout, push them to the tracked branch,
-then update only the editor input and rebuild:
+uncommitted changes when moved; inspect its status before updating it. Update
+the LazyVim module or custom overlay separately, then build before switching:
 
 ```sh
-nix flake update nvim-config --flake /home/manoloess/nixos_alien
+nix flake update lazyvim-nix lazyvim-custom --flake /home/manoloess/nixos_alien
 ```
 
 Home Manager also manages Bash integrations, Starship, zoxide, fzf, and direnv

@@ -16,6 +16,16 @@
     noctalia.url = "github:noctalia-dev/noctalia";
     herdr.url = "github:herdrdev/herdr/master";
 
+    lazyvim-nix.url = "github:pfassina/lazyvim-nix";
+    lazyvim-custom = {
+      url = "github:ManoloEsS/lazyvim-custom/main";
+      flake = false;
+    };
+    org-bullets = {
+      url = "github:nvim-orgmode/org-bullets.nvim";
+      flake = false;
+    };
+
     nvim-config = {
       url = "github:ManoloEsS/kickstart.nvim/master";
       flake = false;
