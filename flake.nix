@@ -17,6 +17,8 @@
     herdr.url = "github:herdrdev/herdr/master";
 
     lazyvim-nix.url = "github:pfassina/lazyvim-nix";
+    # Match the Blink version selected by the currently locked LazyVim input.
+    blink-cmp.url = "github:Saghen/blink.cmp/v1.10.2";
     lazyvim-custom = {
       url = "github:ManoloEsS/lazyvim-custom/main";
       flake = false;

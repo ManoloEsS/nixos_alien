@@ -38,7 +38,6 @@
 
       programs.lazyvim = {
         enable = true;
-        extraPackages = [ pkgs.golangci-lint ];
         # Avoid the Trouble symbols statusline error; keep Trouble available.
         config.options = ''
           vim.g.trouble_lualine = false
@@ -57,6 +56,7 @@
         # explicit Nix-store paths instead of relying on runtime downloads.
         plugins.custom-sources = ''
           return {
+            { "saghen/blink.cmp", dir = "${inputs.blink-cmp.packages.${pkgs.stdenv.hostPlatform.system}.default}", dev = false, build = false },
             { "ThePrimeagen/harpoon", dir = "${pkgs.vimPlugins.harpoon2}" },
             { "chentoast/marks.nvim", dir = "${pkgs.vimPlugins.marks-nvim}" },
             { "karb94/neoscroll.nvim", dir = "${pkgs.vimPlugins.neoscroll-nvim}" },
