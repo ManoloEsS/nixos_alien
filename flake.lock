@@ -209,23 +209,6 @@
         "type": "github"
       }
     },
-    "nvim-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794444427,
-        "narHash": "sha256-NjyHZJoQe69LfkFIS3ZWyCeuvMMpb2T7laTjMlzG8q4=",
-        "owner": "ManoloEsS",
-        "repo": "kickstart.nvim",
-        "rev": "a04ae79bf1ca7f2d93d6886ef4ae0d44015e4d87",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ManoloEsS",
-        "ref": "master",
-        "repo": "kickstart.nvim",
-        "type": "github"
-      }
-    },
     "org-bullets": {
       "flake": false,
       "locked": {
@@ -252,7 +235,6 @@
         "lazyvim-nix": "lazyvim-nix",
         "nixpkgs": "nixpkgs_3",
         "noctalia": "noctalia",
-        "nvim-config": "nvim-config",
         "org-bullets": "org-bullets",
         "yazi-tokyo-night": "yazi-tokyo-night"
       }

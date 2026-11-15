@@ -38,6 +38,7 @@
 
       programs.lazyvim = {
         enable = true;
+        extraPackages = [ pkgs.golangci-lint ];
         # Avoid the Trouble symbols statusline error; keep Trouble available.
         config.options = ''
           vim.g.trouble_lualine = false
