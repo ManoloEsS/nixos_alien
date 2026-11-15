@@ -59,10 +59,28 @@ That host's files contain the E14's hardware, boot, encrypted disk swap,
 hostname, state versions, Wi-Fi, internal-keyboard, and battery settings. Its
 Niri terminal shortcut uses Ghostty; Alien retains Alacritty. The E14 has booted
 this configuration, but hardware settings must be reconciled after a reinstall.
-Its battery feature
-declares 75/80 limits and restores them at boot only when UPower's saved state
-is enabled; on a fresh install the limit must be enabled explicitly. This
-behavior has not been tested on NixOS.
+Its battery feature declares 75/80 limits, initializes UPower control when no
+saved toggle state exists, and restores the limits at boot only when the saved
+state is enabled. On the E14, enabling thresholds through UPower made
+Noctalia's charge-limit toggle available. The initialization, persistence across
+reboots, and restore service's interaction with the toggle remain to be tested.
+
+If Noctalia reports that the charge limit is set by another tool, inspect the
+active battery settings and check for other threshold managers first. On the
+current E14, UPower reported threshold support but its control was disabled
+while the firmware retained 75/80 limits. Enabling UPower's control resolved
+that mismatch:
+
+```sh
+sudo busctl --system call org.freedesktop.UPower \
+  /org/freedesktop/UPower/devices/battery_BAT0 \
+  org.freedesktop.UPower.Device EnableChargeThreshold b true
+```
+
+The battery path is installation-specific; check `upower -e` first. Enabling
+thresholds changes charging behavior. Use Noctalia to toggle the limit after
+UPower owns it; review persistence after reboot before removing the host's
+restore workaround.
 
 ## Fresh installation and encryption
 

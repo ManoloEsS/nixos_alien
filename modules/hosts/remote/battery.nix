@@ -7,7 +7,15 @@ let
     status=/var/lib/upower/charging-threshold-status
     battery=/sys/class/power_supply/BAT0
 
-    # An absent or disabled UPower setting must not enable charging limits.
+    # Initialize UPower only on a fresh installation. Once UPower has saved a
+    # state, respect the user's Noctalia toggle, including an explicit disable.
+    if [ ! -e "$status" ]; then
+      ${pkgs.systemd}/bin/busctl --system call \
+        org.freedesktop.UPower \
+        /org/freedesktop/UPower/devices/battery_BAT0 \
+        org.freedesktop.UPower.Device EnableChargeThreshold b true
+    fi
+
     [ -r "$status" ] || exit 0
     [ "$(< "$status")" = 1 ] || exit 0
     [ -w "$battery/charge_control_start_threshold" ] || exit 0
@@ -25,14 +33,14 @@ let
   '';
 in
 {
-  # This rule is imported only by the E14 profile, not the Alien host.
+  # This rule and service apply only to the E14, not the Alien host.
   services.udev.extraHwdb = ''
     battery:*:*:dmi:*
      CHARGE_LIMIT=75,80
   '';
 
   systemd.services.e14-restore-charge-thresholds = {
-    description = "Restore ThinkPad E14 UPower charge thresholds";
+    description = "Initialize and restore ThinkPad E14 UPower charge thresholds";
     after = [ "upower.service" "systemd-udevd.service" ];
     wantedBy = [ "multi-user.target" ];
     unitConfig.ConditionPathExists = "/sys/class/power_supply/BAT0/charge_control_end_threshold";
