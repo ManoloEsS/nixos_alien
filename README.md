@@ -157,6 +157,11 @@ Toolbx by default.
 
 ## Updates and recovery
 
+The workstation trusts Noctalia's official Cachix cache for prebuilt Noctalia
+packages. A new upstream revision can still require a local build if its cache
+entry is not available yet. The cache applies after its configuration is
+activated and does not affect a build already in progress.
+
 Review changes before updating inputs. A normal rebuild uses existing locked
 revisions. Updating an input modifies `flake.lock`; synchronize that change
 back to the source-of-truth repository before it is lost. Herdr follows its

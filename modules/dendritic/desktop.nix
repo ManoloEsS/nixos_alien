@@ -2,6 +2,14 @@
 
 {
   flake.modules.nixos.desktop = { lib, pkgs, ... }: {
+    # Noctalia's official cache can avoid compiling its flake package locally.
+    nix.settings = {
+      extra-substituters = [ "https://noctalia.cachix.org" ];
+      extra-trusted-public-keys = [
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
+    };
+
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
     services.gnome.core-apps.enable = false;
